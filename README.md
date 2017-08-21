@@ -1,6 +1,6 @@
 Welcome to FlyBit!
 ====================
-Flybit is a public blockchain that is open to everyone. It is an advanced blockchain platform which expands the things you can do with a blockchain. Many other expanded functions will be introduced to relieve the developers to code for the specific function.
+FlyBit is a public blockchain that is open to everyone. It is an advanced blockchain platform which expands the things you can do with a blockchain. Many other expanded functions will be introduced to relieve the developers to code for the specific function.
 
 
 
