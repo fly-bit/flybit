@@ -1,11 +1,9 @@
 
 package org.flybit.p2p;
 
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.concurrent.ThreadLocalRandom;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -130,16 +128,10 @@ public class PeerManagerImpl implements PeerManager {
             return;
         }
         
-        final Collection<Peer> workingPeers = peerConnectionManager.getWorkingPeers();
-        log.debug("Working peers "+ workingPeers);
-        if(workingPeers.isEmpty()){
+        final Peer selectedPeer=peerConnectionManager.getRandomWorkingPeer();
+        if(selectedPeer == null){
             return;
         }
-        
-        workingPeers.forEach(peer-> log.debug("working peer "+ peer.getId()));
-        final Peer selectedPeer=(Peer)workingPeers.toArray()[ThreadLocalRandom.current().nextInt(workingPeers.size())];
-        log.debug("Selected peer "+ selectedPeer);
-        
         final PeerInfoListMessage peerInfoListMessage = peerClient.getWorkingPeers(selectedPeer);
         
         final Set<Peer> peersToAddToDb = new HashSet<Peer>();

@@ -31,6 +31,8 @@ public interface PeerConnectionManager {
     
     Collection<Peer> getWorkingPeers();
     
+    Peer getRandomWorkingPeer();
+    
     WebSocketSession getInboundSession(String sessionId);
 
     WebSocketSession registerInboundSession(String ip, WebSocketSession webSocketSession);

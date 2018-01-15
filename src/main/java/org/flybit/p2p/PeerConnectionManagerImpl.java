@@ -3,6 +3,7 @@ package org.flybit.p2p;
 
 import java.io.IOException;
 import java.util.Collection;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.logging.Log;
@@ -151,6 +152,21 @@ public class PeerConnectionManagerImpl implements PeerConnectionManager {
     }
 
     @Override
+    public Peer getRandomWorkingPeer(){
+        final Collection<Peer> workingPeers = this.getWorkingPeers();
+        log.debug("Working peers "+ workingPeers);
+        if(workingPeers.isEmpty()){
+            return null;
+        }
+        
+        workingPeers.forEach(peer-> log.debug("working peer "+ peer.getId()));
+        final Peer selectedPeer=(Peer)workingPeers.toArray()[ThreadLocalRandom.current().nextInt(workingPeers.size())];
+        log.debug("Selected peer "+ selectedPeer);
+        return selectedPeer;
+        
+    }
+    
+    @Override
     public WebSocketSession getInboundSession(String sessionId) {
         return peerInboundSessionRepository.get(sessionId);
     }
@@ -196,27 +212,5 @@ public class PeerConnectionManagerImpl implements PeerConnectionManager {
 
     
 }
-
-
-//simpMessagingTemplate.convertAndSend("/portfolio", "test message");
-//simpMessagingTemplate.convertAndSend("/user/abc-ddd/queue/trans", "test /user/abc-ddd/queue/trans message");
-//
-//simpMessagingTemplate.convertAndSend("/user/abc-ddd/trans", "test /user/abc-ddd/trans tran message");
-//simpMessagingTemplate.convertAndSend("/topic/trans", "test tocpic tran message");
-//simpMessagingTemplate.convertAndSend("/user/abc-ddd/exchange/amq.direct/trans", "test /user/abc-ddd/exchange/amq.direct/trans tran message");
-
-//final String webSocketSessionId = peerWebSocketSessionRepository.getWebSocketSessionId("abc-ddd");
-//if(webSocketSessionId!=null){
-//  final SimpMessageHeaderAccessor accessor = SimpMessageHeaderAccessor.create();
-//  accessor.setContentType(MimeTypeUtils.TEXT_PLAIN);
-//  accessor.setNativeHeader("foo", "bar");
-//  accessor.setLeaveMutable(true);
-//  accessor.setSessionId(webSocketSessionId);
-//  final MessageHeaders headers = accessor.getMessageHeaders();
-//  
-//  simpMessagingTemplate.convertAndSendToUser(webSocketSessionId, "/queue/trans", "test user message", headers);
-//}
-
-
 
 
