@@ -24,6 +24,9 @@ public class Transaction extends BaseEntity<Transaction>{
     @Column(name = "RECIPIENT_ID", nullable = true, length = 64, updatable = false)
     private String recipientId;
     
+    @Column(name = "HANDLER_ID", nullable = true, length = 64, updatable = false)
+    private String handlerId;
+    
     @Column(name = "EXPIRATION_INSTANT", nullable = false, scale = 10, updatable = false)
     private long expirationInstant;
     
@@ -90,6 +93,14 @@ public class Transaction extends BaseEntity<Transaction>{
 
     public void setRecipientId(String recipientId) {
         this.recipientId = recipientId;
+    }
+
+    public String getHandlerId() {
+        return handlerId;
+    }
+
+    public void setHandlerId(String handlerId) {
+        this.handlerId = handlerId;
     }
 
     public long getExpirationInstant() {
