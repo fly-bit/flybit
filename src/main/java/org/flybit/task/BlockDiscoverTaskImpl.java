@@ -3,6 +3,7 @@ package org.flybit.task;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.flybit.block.BlockManager;
+import org.flybit.concensus.BlockDiscover;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -15,7 +16,7 @@ public class BlockDiscoverTaskImpl implements BlockDiscoverTask{
 
     @Autowired
     private BlockManager blockManager;
-    
+
     private volatile boolean isGenesisBlockAdded = false;
 
     @Override
@@ -24,6 +25,8 @@ public class BlockDiscoverTaskImpl implements BlockDiscoverTask{
         log.info("discover block");
         if (!isGenesisBlockAdded) {
             addGenesisBlock();
+        }else{
+            log.info("Genesis check pass.");
         }
         blockManager.discoverBlocks();
     }
